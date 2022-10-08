@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.7;
+pragma abicoder v2;
 
-contract DecentraParty{
+contract Partier{
     uint public totalPosts = 0;
     uint public totalConfs = 0;
-    uint public totalProfiles = 0;
-    mapping(uint => Post) public posts; // post id to post
+    Post[] public posts; // post id to post
     mapping(uint => Conference) public conferences; // conference id to conference
     mapping(address => Profile) public profiles; // address to profile
 
@@ -53,10 +53,13 @@ contract DecentraParty{
 
 
 
-    function uploadPost(uint _conference, address payable _author, string memory _desc, uint256 _price, string memory _image) public {
+    function uploadPost(uint _conference, string memory _desc, uint256 _price, string memory _image) public {
         totalPosts++;
         Conference storage conf = conferences[_conference];
-        Profile storage prof = profiles[_author];
+        Profile storage prof = profiles[msg.sender];
+        
+        require(conf.id != 0, "This conference is not registred, please ask for an admin to register it");
+        require(bytes(prof.profileName).length != 0, "This profile is not registred, please ask for an admin to register it");
 
         conf.totalConfPosts++;
         prof.totalprofilePosts++;
@@ -64,8 +67,8 @@ contract DecentraParty{
         conf.posts.push(totalPosts);
         prof.posts.push(totalPosts);
 
-        posts[totalPosts] = Post(totalPosts, _conference, _author, _desc, _price, _image);
-        emit Posted(totalPosts, _conference, _author, _desc, _price, _image);
+        posts.push(Post(totalPosts, _conference, payable(msg.sender), _desc, _price, _image));
+        emit Posted(totalPosts, _conference, payable(msg.sender), _desc, _price, _image);
     }
 
     function createProfile(string memory _profileName, string memory _image) public {
@@ -73,32 +76,15 @@ contract DecentraParty{
         emit ProfileCreated(_profileName, _image);
     }
 
-    function createConference(string memory _profileName, string memory _image) public {
-        totalProfiles++;
+    function createConference(string memory _confName) public {
+        totalConfs++;
 
-        profiles[msg.sender] = Profile(_profileName, _image, new uint[](0),0);
-        emit ProfileCreated(_profileName, _image);
+        conferences[totalConfs] = Conference(totalConfs, _confName, new uint[](0),0);
+        emit ConferenceCreated(totalConfs, _confName);
     }
 
-
-
-    // function createConference(string memory _confName,) public {
-    //     totalConfs++;
-    //     conferences
-        
-
-
-    // }
-
-
-    // function viewPost(address _author) public view returns(Post[] memory timeline) {
-        
-        
-    //     return profile[following[_author]];
-    // }
-
-
-
-
+    function GetPosts() public view returns(Post[] memory) {
+        return posts;
+    }
     
 }
