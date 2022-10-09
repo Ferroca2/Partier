@@ -9,7 +9,7 @@ import { Web3Storage } from 'web3.storage'
 import Web3Modal from 'web3modal'
 import { ethers } from "ethers"
 import Partier from '../../Partier.json'
-import { useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -19,7 +19,7 @@ export default function AddPost() {
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0)
 
-    const history = useNavigation();
+    const history = useNavigate();
 
 
     function makeStorageClient () {
@@ -47,10 +47,10 @@ export default function AddPost() {
         const signer = provider.getSigner()
         const priceF = ethers.utils.parseUnits(price, 'ether')
 
-        let contract = new ethers.Contract('0x9144851c7425fc90bd7e51dbd4B2769B4Ba89923', Partier.abi, signer)
+        let contract = new ethers.Contract('0xaE680efdEAb88eaa5F419869f1bc8dFC4704A4d4', Partier.abi, signer)
         let transaction = await contract.uploadPost(username, image, description, priceF, image);
         await transaction.wait()
-        history.push("/")
+        history("/")
     }
 
     return (

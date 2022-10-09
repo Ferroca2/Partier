@@ -15,7 +15,7 @@ export default function Home() {
         const provider = new ethers.providers.Web3Provider(connection)
         const signer = provider.getSigner()
 
-        let contract = new ethers.Contract('0x9144851c7425fc90bd7e51dbd4B2769B4Ba89923', Partier.abi, signer)
+        let contract = new ethers.Contract('0xaE680efdEAb88eaa5F419869f1bc8dFC4704A4d4', Partier.abi, signer)
         let posts = await contract.GetPosts();
         console.log(posts[0][6])
         setPosts(posts)
