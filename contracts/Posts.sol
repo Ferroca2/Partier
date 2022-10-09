@@ -16,6 +16,8 @@ contract Partier{
         string partyDesc;
         uint256 ticPrice;
         string imageHash;
+        string profileName;
+        string profImageHash;
     }
 
     struct Profile {
@@ -38,7 +40,9 @@ contract Partier{
         address payable author,
         string partyDesc,
         uint256 ticPrice,
-        string imageHash
+        string imageHash,
+        string profileName,
+        string profImageHash
     );
 
     event ProfileCreated (
@@ -67,8 +71,8 @@ contract Partier{
         conf.posts.push(totalPosts);
         prof.posts.push(totalPosts);
 
-        posts.push(Post(totalPosts, _conference, payable(msg.sender), _desc, _price, _image));
-        emit Posted(totalPosts, _conference, payable(msg.sender), _desc, _price, _image);
+        posts.push(Post(totalPosts, _conference, payable(msg.sender), _desc, _price, _image, prof.profileName, prof.profImageHash));
+        emit Posted(totalPosts, _conference, payable(msg.sender), _desc, _price, _image, prof.profileName, prof.profImageHash);
     }
 
     function createProfile(string memory _profileName, string memory _image) public {
