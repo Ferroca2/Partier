@@ -22,12 +22,9 @@ export default function Post() {
             R
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title="Shrimp and Chorizo Paella"
+        title="MakerDAO"
+        titleTypographyProps={{fontWeight:'bold'}}
+        style={{textAlign:'left'}}
       />
       <CardMedia
         component="img"
