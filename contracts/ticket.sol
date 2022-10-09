@@ -19,7 +19,7 @@ contract PartierTicket is ERC721, Ownable {
     mintPrice = mintPrice_; //can hardcode for the hackathon
     totalSupply = 0;
     maxSupply = maxSupply_; 
-    withdrawWallet = msg.sender; // owner of the contract, who deployed it
+    withdrawWallet = payable(msg.sender); // owner of the contract, who deployed it
     
     
 
@@ -27,7 +27,7 @@ contract PartierTicket is ERC721, Ownable {
 
     // kickstart mint
    function setIsPublicMintEnabled (bool isPublicMintEnabled_) external onlyOwner {
-    isPublicMintEnabled = isPublicMintEnableD_;
+    isPublicMintEnabled = isPublicMintEnabled_;
    }
 
     //image link on ipfs
@@ -37,7 +37,7 @@ contract PartierTicket is ERC721, Ownable {
 
    function tokenURI(uint256 tokenId_) public view override returns (string memory) {
     require(_exists(tokenId_), "Token does not exist");
-    return string(abi.encodePacked(baseTokenUri, String.toString(tokenId_),".json"));
+    return string(abi.encodePacked(baseTokenUri, Strings.toString(tokenId_),".json"));
    }
 
 
