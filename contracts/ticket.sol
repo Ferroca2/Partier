@@ -19,6 +19,7 @@ contract PartierTicket is ERC721, Ownable {
     mintPrice = mintPrice_; //can hardcode for the hackathon
     totalSupply = 0;
     maxSupply = maxSupply_; 
+    baseTokenUri = "ipfs://bafkreicccaxlkfxxycckddz7hn34ib7w4sg4izcriuab34yyialgvre7my";
     withdrawWallet = payable(msg.sender); // owner of the contract, who deployed it
     
     
