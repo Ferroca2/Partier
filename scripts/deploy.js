@@ -15,7 +15,7 @@ async function main() {
   );
 
   let txHash, txReceipt
-  const Partier = await hre.ethers.getContractFactory("Posts");
+  const Partier = await hre.ethers.getContractFactory("Partier");
   const partier = await Partier.deploy();
   await partier.deployed();
 

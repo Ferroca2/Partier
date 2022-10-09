@@ -11,7 +11,7 @@ contract Partier{
 
     struct Post {
         uint id;
-        uint conference;
+        // uint conference;
         address payable author;
         string partyDesc;
         uint256 ticPrice;
@@ -36,7 +36,6 @@ contract Partier{
 
     event Posted (
         uint id,
-        uint conference,
         address payable author,
         string partyDesc,
         uint256 ticPrice,
@@ -57,22 +56,22 @@ contract Partier{
 
 
 
-    function uploadPost(uint _conference, string memory _desc, uint256 _price, string memory _image) public {
+    function uploadPost(string memory _profileName, string memory _profImageHash, string memory _desc, uint256 _price, string memory _image) public {
         totalPosts++;
-        Conference storage conf = conferences[_conference];
-        Profile storage prof = profiles[msg.sender];
+        // Conference storage conf = conferences[_conference];
+        // Profile storage prof = profiles[msg.sender];
         
-        require(conf.id != 0, "This conference is not registred, please ask for an admin to register it");
-        require(bytes(prof.profileName).length != 0, "This profile is not registred, please ask for an admin to register it");
+        // require(conf.id != 0, "This conference is not registred, please ask for an admin to register it");
+        // require(bytes(prof.profileName).length != 0, "This profile is not registred, please ask for an admin to register it");
 
-        conf.totalConfPosts++;
-        prof.totalprofilePosts++;
+        // conf.totalConfPosts++;
+        // prof.totalprofilePosts++;
 
-        conf.posts.push(totalPosts);
-        prof.posts.push(totalPosts);
+        // conf.posts.push(totalPosts);
+        // prof.posts.push(totalPosts);
 
-        posts.push(Post(totalPosts, _conference, payable(msg.sender), _desc, _price, _image, prof.profileName, prof.profImageHash));
-        emit Posted(totalPosts, _conference, payable(msg.sender), _desc, _price, _image, prof.profileName, prof.profImageHash);
+        posts.push(Post(totalPosts, payable(msg.sender), _desc, _price, _image, _profileName, _profImageHash));
+        emit Posted(totalPosts, payable(msg.sender), _desc, _price, _image, _profileName, _profImageHash);
     }
 
     function createProfile(string memory _profileName, string memory _image) public {
