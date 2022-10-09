@@ -15,12 +15,12 @@ async function main() {
   );
 
   let txHash, txReceipt
-  const Partier = await hre.ethers.getContractFactory("Posts");
+  const Partier = await hre.ethers.getContractFactory("Partier");
   const partier = await Partier.deploy();
   await partier.deployed();
 
   txHash = partier.deployTransaction.hash;
-  txReceipt = await ethers.provider.waitForTransaction(txHash);
+  txReceipt = await hre.ethers.provider.waitForTransaction(txHash);
   let partierAddress = txReceipt.contractAddress
 
   console.log("partier deployed to:", partierAddress);
