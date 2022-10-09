@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import style from './addpost.module.css';
 import { Avatar } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
+import Post from '../../components/post';
 
 
 export default function AddPost() {
@@ -12,7 +13,9 @@ export default function AddPost() {
             {
                 image ?
                     (
-                        <div>Hello World</div>
+                        <div>
+                            <Post/>
+                        </div>
 
                     ) :
                     (
