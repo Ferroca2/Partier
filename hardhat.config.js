@@ -12,8 +12,8 @@ module.exports = {
   hardhat: {
     chainId: 1337
   },
-  polygon_mumbai: {
+  mumbai: {
     url: ALCHEMY_API_URL,
-    accounts: [MUMBAY_PRIVATE_KEY]
+    accounts: [`0x${MUMBAY_PRIVATE_KEY}`]
   },
 };
