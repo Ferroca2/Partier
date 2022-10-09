@@ -24,6 +24,7 @@ async function main() {
   let partierAddress = txReceipt.contractAddress
 
   console.log("partier deployed to:", partierAddress);
+
 }
 
 main()
