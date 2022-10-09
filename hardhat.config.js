@@ -9,11 +9,13 @@ const MUMBAY_PRIVATE_KEY = process.env.MUMBAY_PRIVATE_KEY
 
 module.exports = {
   solidity: "0.8.17",
-  hardhat: {
-    chainId: 1337
-  },
-  mumbai: {
-    url: ALCHEMY_API_URL,
-    accounts: [`0x${MUMBAY_PRIVATE_KEY}`]
-  },
+  networks: {
+      hardhat: {
+        chainId: 1337
+      },
+      mumbai: {
+        url: ALCHEMY_API_URL,
+        accounts: [MUMBAY_PRIVATE_KEY]
+      },
+  }
 };

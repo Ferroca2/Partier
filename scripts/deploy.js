@@ -20,7 +20,7 @@ async function main() {
   await partier.deployed();
 
   txHash = partier.deployTransaction.hash;
-  txReceipt = await ethers.provider.waitForTransaction(txHash);
+  txReceipt = await hre.ethers.provider.waitForTransaction(txHash);
   let partierAddress = txReceipt.contractAddress
 
   console.log("partier deployed to:", partierAddress);

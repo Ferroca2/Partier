@@ -20,12 +20,13 @@
     "ethereum-waffle": "^3.4.4",
     "ethers": "^5.7.1",
     "hardhat": "^2.11.2",
-    "ipfs-http-client": "^58.0.1",
+    "ipfs-http-client": "^50.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "wagmi": "^0.6.8",
     "web-vitals": "^2.1.4",
+    "web3.storage": "^4.4.0",
     "web3modal": "^1.9.9"
   },
   "scripts": {
