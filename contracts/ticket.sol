@@ -15,10 +15,10 @@ contract PartierTicket is ERC721, Ownable {
    address payable public withdrawWallet;
    mapping(address => uint256) public walletMints;
 
-   constructor(uint256 mintPrice_, uint256 maxSupply_) payable ERC721('Ticket','TKT') {
-    mintPrice = mintPrice_; //can hardcode for the hackathon
+   constructor() payable ERC721('Ticket','TKT') {
+    mintPrice = 0.01 ether; //can hardcode for the hackathon
     totalSupply = 0;
-    maxSupply = maxSupply_; 
+    maxSupply = 5; 
     baseTokenUri = "ipfs://bafkreicccaxlkfxxycckddz7hn34ib7w4sg4izcriuab34yyialgvre7my";
     withdrawWallet = payable(msg.sender); // owner of the contract, who deployed it
     
@@ -36,10 +36,16 @@ contract PartierTicket is ERC721, Ownable {
     baseTokenUri = baseTokenUri_;
    }
 
-   function tokenURI(uint256 tokenId_) public view override returns (string memory) {
-    require(_exists(tokenId_), "Token does not exist");
-    return string(abi.encodePacked(baseTokenUri, Strings.toString(tokenId_),".json"));
-   }
+   //function tokenURI(uint256 tokenId_) public view override returns (string memory) {
+    //require(exists(tokenId), "Token does not exist");
+    //return baseTokenUri;
+  // }
+   function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+        //_requireMinted(tokenId);
+
+        //string memory baseURI = _baseURI();
+        return bytes(baseTokenUri).length > 0 ? string(abi.encodePacked(baseTokenUri, Strings.toString(tokenId),".json")) : "";
+    }
 
 
    function withdraw() external onlyOwner {
@@ -49,7 +55,7 @@ contract PartierTicket is ERC721, Ownable {
 
    function mint(uint256 quantity_) public payable {
     require(isPublicMintEnabled, 'minting is not enabled');
-    require(msg.value == quantity_ * mintPrice, 'wrong mint value');
+    //require(msg.value == quantity_ * mintPrice, 'wrong mint value');
     require(totalSupply + quantity_ <= maxSupply, 'we are sold out');
     
     for (uint256 i = 0; i<quantity_; i++){
